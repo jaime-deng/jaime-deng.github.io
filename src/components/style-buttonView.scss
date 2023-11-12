@@ -1,0 +1,172 @@
+.button {
+    --background: #275EFE;
+    --background-hover: #1D4FE1;
+    --shadow: #{rgba(#275EFE, .3)};
+    --shadow-hover: #{rgba(#275EFE, .5)};
+    --text: #fff;
+    display: flex;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    border: 0;
+    padding: 0;
+    height: 44px;
+    line-height: 20px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    background: none;
+    color: var(--text);
+    filter: drop-shadow(0 2px 5px var(--s, var(--shadow)));
+    -webkit-tap-highlight-color: transparent;
+    transition: filter .4s;
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        width: 12px;
+        height: 44px;
+        background: var(--b, var(--background));
+        transform: scaleX(1.04) scaleY(var(--scale-y, 1));
+        transition: background .4s;
+    }
+    &:before {
+        transform-origin: 0 50%;
+        border-radius: 10px 0 0 10px;
+    }
+    &:after {
+        transform-origin: 100% 50%;
+        border-radius: 0 10px 10px 0;
+    }
+    svg {
+        width: calc(100% - 24px);
+        height: 68px;
+        display: block;
+        position: absolute;
+        pointer-events: none;
+        left: 12px;
+        right: 12px;
+        top: -12px;
+        fill: var(--b, var(--background));
+        transition: fill .4s;
+    }
+    div {
+        z-index: 1;
+        position: relative;
+        display: flex;
+        padding: 0 16px;
+        span {
+            display: block;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            animation: var(--name, none) .75s linear forwards;
+        }
+    }
+    &.in {
+        --name: move;
+        &:not(.out) {
+            --c: var(--color-hover);
+            --b: var(--background-hover);
+            --s: var(--shadow-hover);
+        }
+        &.out {
+            --name: move-out;
+        }
+    }
+    &.white {
+        --border: #D1D6EE;
+        --background: #fff;
+        --background-hover: #fff;
+        --text: #2B3044;
+        --scale-y: 1.025;
+        --shadow: #{rgba(#041268, .08)};
+        --shadow-hover: #{rgba(#041268, .16)};
+        &:before {
+            border: 1px solid var(--border);
+            border-right: 0;
+        }
+        &:after {
+            border: 1px solid var(--border);
+            border-left: 0;
+        }
+        svg {
+            stroke-width: 1px;
+            stroke: var(--border);
+            stroke-dasharray: 200 44;
+        }
+    }
+}
+
+@keyframes move {
+    22%,
+    36% {
+        transform: translateY(calc(-6px * var(--move))) translateZ(0) rotate(calc(-13deg * var(--rotate) * var(--part)));
+    }
+    50% {
+        transform: translateY(calc(3px * var(--move))) translateZ(0) rotate(calc(6deg * var(--rotate) * var(--part)));
+    }
+    70% {
+        transform: translateY(calc(-2px * var(--move))) translateZ(0) rotate(calc(-3deg * var(--rotate) * var(--part)));
+    }
+}
+
+@keyframes move-out {
+    22%,
+    36% {
+        transform: translateY(calc(6px * var(--move))) translateZ(0) rotate(calc(13deg * var(--rotate) * var(--part)));
+    }
+    50% {
+        transform: translateY(calc(-3px * var(--move))) translateZ(0) rotate(calc(-6deg * var(--rotate) * var(--part)));
+    }
+    70% {
+        transform: translateY(calc(2px * var(--move))) translateZ(0) rotate(calc(3deg * var(--rotate) * var(--part)));
+    }
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+    &:before,
+    &:after {
+        box-sizing: inherit;
+    }
+}
+
+// Center & dribbble
+body {
+    min-height: 100vh;
+    display: flex;
+    font-family: 'Inter', Arial;
+    justify-content: center;
+    align-items: center;
+    background: #F6F8FF;
+    .button {
+        margin: 0 12px;
+    }
+    .dribbble {
+        position: fixed;
+        display: block;
+        right: 20px;
+        bottom: 20px;
+        img {
+            display: block;
+            height: 28px;
+        }
+    }
+    .twitter {
+        position: fixed;
+        display: block;
+        right: 64px;
+        bottom: 14px;
+        svg {
+            width: 32px;
+            height: 32px;
+            fill: #1da1f2;
+        }
+    }
+}
